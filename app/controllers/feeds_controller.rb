@@ -5,6 +5,16 @@ class FeedsController < ApplicationController
   # GET /feeds.json
   def index
     @feeds = Feed.all
+    if params[:reload_single].present?
+      system "rake 'sync:feed[#{params[:reload_single]}]'"
+      feed = Feed.where(id: params[:reload_single]).first
+      redirect_to feeds_path, notice: "Feed #{feed.name} was successfully updated."
+    end
+
+    if params[:reload_all].present?
+      system "rake sync:feeds"
+      redirect_to feeds_path, notice: "All feeds were successfully updated."
+    end
   end
 
   # GET /feeds/1
