@@ -1,0 +1,12 @@
+<h1>Entries</h1>
+<div class="container">
+  <% @entries.each do |entry| %>
+    <div>
+      <% unless entry.published.nil? %>
+        <%= link_to entry.title, entry %> - <i>published: <%= time_ago_in_words(entry.published)%> ago.</i>
+      <% else %>
+        <%= link_to entry.title, entry %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

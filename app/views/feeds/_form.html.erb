@@ -1,3 +1,9 @@
+<style>
+  a, a:visited{
+    color: white;
+  }
+</style>
+<div class="container-fluid">
 <%= form_with(model: feed, local: true) do |form| %>
   <% if feed.errors.any? %>
     <div id="error_explanation">
@@ -11,22 +17,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="row">
+    <div class="col-1"><%= form.label :name %></div>
+    <div class="col-4"><%= form.text_field :name, class: "form-control" %></div>
   </div>
 
-  <div class="field">
-    <%= form.label :url %>
-    <%= form.text_field :url %>
+  <div class="row">
+    <div class="col-1"><%= form.label :url %></div>
+    <div class="col-4"><%= form.text_field :url, class: "form-control" %></div>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <div class="row">
+    <div class="col-1"><%= form.label :description %></div>
+    <div class="col-4"><%= form.text_area :description, class: "form-control" %></div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+</div>
+<br />
+<%= form.submit "Save", class: "btn btn-primary" %>
+<%= link_to 'Back', feeds_path, class: "btn btn-danger" %>
 <% end %>
