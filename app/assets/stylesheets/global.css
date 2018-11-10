@@ -1,0 +1,67 @@
+a.fa-primary, a.fa-primary:hover, a.fa-primary:valid, a.fa-primary:visited{
+  color: #007bff;
+  background-color: rgba(255,255,255,0);
+  text-decoration: none;
+  font-size: 13pt !important;
+}
+
+a.fa-secondary, a.fa-secondary:hover, a.fa-secondary:valid, a.fa-secondary:visited{
+  color: #6c757d;
+  background-color: rgba(255,255,255,0);
+  text-decoration: none;
+  font-size: 13pt !important;
+}
+
+a.fa-success, a.fa-success:hover, a.fa-success:valid, a.fa-success:visited{
+  color: #28a745;
+  background-color: rgba(255,255,255,0);
+  text-decoration: none;
+  font-size: 13pt !important;
+}
+
+a.fa-danger, a.fa-danger:hover, a.fa-danger:valid, a.fa-danger:visited{
+  color: #dc3545;
+  background-color: rgba(255,255,255,0);
+  text-decoration: none;
+  font-size: 13pt !important;
+}
+
+div.btngroup-top{
+  margin-bottom: 10px;
+}
+
+th, td{
+  font-size: 11pt;
+}
+
+div.header-container{
+  position: relative;
+  float: left;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+div.header-label{
+  position: relative;
+  float: left;
+}
+
+div.header-buttons{
+  position: relative;
+  float: right;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+div.row{
+  margin-bottom: 10px;
+}
+
+label{
+  font-size: 11pt;
+}
+
+div.pagination{
+  margin-left: 35%;
+}

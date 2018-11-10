@@ -1,0 +1,4 @@
+FetchAllFeedsJob:
+  cron: "* * * * *"
+  class: "FetchAllFeedsJob"
+  queue: default

@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="header-container">
+    <div class="header-label">
+      <h3>Wellcome to your aggregated feed</h3>
+      <h6>Here are the latest news</h6>
+    </div>
+    <div class="header-buttons">
+      <%= link_to "Edit feeds", feeds_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+  <table class="table table-hover">
+    <tr>
+      <th>Feed</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Published</th>
+    </tr>
+    <% @news.each do |entry| %>
+      <tr>
+        <td><%= entry.feed.html_safe unless entry.feed.nil?%></td>
+        <td><%= link_to entry.title.html_safe, entry.url, target: :_blank %></td>
+        <td><%= entry.author.html_safe unless entry.author.nil? %></td>
+        <td><%= time_ago_in_words(entry.published) unless entry.published.nil? %> ago</td>
+      </tr>
+    <% end %>
+  </table>
+  <div class="pagination">
+    <%= will_paginate @news, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

@@ -1,17 +1,21 @@
-<style>
-  a, a:visited{
-    color: white;
-  }
-</style>
-
 <p id="notice"><%= notice %></p>
-<h1>Feeds</h1>
-<div class="btn-group" role="group">
-  <%= link_to 'New Feed', new_feed_path, {class: "btn btn-primary", style: "color: white;"} %>
-  <%= link_to 'Reload All Feeds', feeds_path(reload_all: true), {class: "btn btn-success", style: "color: white;"} %>
+<div class="header-container">
+  <div class="header-label"><h3>Feeds</h3></div>
+  <div class="header-buttons">
+    <div class="btn-group" role="group">
+      <%= link_to 'New Feed', new_feed_path, {class: "btn btn-primary", style: "color: white;"} %>
+      <%= link_to 'Reload All Feeds', feeds_path(reload_all: true), {class: "btn btn-success", style: "color: white;"} %>
+    </div>
+  </div>
 </div>
-
-<table class="table">
+<br clear="both" />
+<table class="table table-hover">
+  <colgroup>
+    <col />
+    <col />
+    <col />
+    <col width="120px;"/>
+  </colgroup>
   <thead>
     <tr>
       <th>Name</th>
@@ -28,10 +32,10 @@
         <td><%= feed.url %></td>
         <td><%= feed.description %></td>
         <td>
-            <%= link_to 'Show', entries_path(feed.id), class: "btn btn-sm btn-primary" %>
-            <%= link_to 'Edit', edit_feed_path(feed), class: "btn btn-sm btn-success" %>
-            <%= link_to 'Refresh', feeds_path(reload_single: feed.id), class: "btn btn-sm btn-warning" %>
-            <%= link_to 'Destroy', feed, class: "btn btn-sm btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to '', entries_path(feed.id), class: "fa fa-eye fa-primary" %>
+          <%= link_to '', edit_feed_path(feed), class: "fa fa-edit fa-success" %>
+          <%= link_to '', feeds_path(reload_single: feed.id), class: "fa fa-refresh fa-secondary" %>
+          <%= link_to '', feed, class: "fa fa-trash fa-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
     <% end %>
