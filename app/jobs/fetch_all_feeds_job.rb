@@ -1,5 +1,4 @@
 class FetchAllFeedsJob < ApplicationJob
-
   queue_as :default
 
   def perform(*args)
@@ -14,18 +13,9 @@ class FetchAllFeedsJob < ApplicationJob
           entry_hash = entry.to_h
           db_entry = feed.entries.where(title: entry["title"]).first_or_initialize
 
-          # Content or summary for Atom 1.0
-          content = entry_hash["content"] if entry_hash.key?("content")
-          content = entry_hash["summary"] if entry_hash.key?("summary")
-
-          # Description for RSS 2.0
-          content = entry_hash["description"] if entry_hash.key?("description")
-
-          db_entry.update_attributes(content: content, author: entry.author, url: entry.url, published: entry.published)
-          Sidekiq::Logging.logger.info "Loaded entry: #{entry.title}"
+          db_entry.update_attributes(author: entry.author, url: entry.url, published: entry.published)
         end
-        Sidekiq::Logging.logger.info "Loaded feed: ##{feed.name}"
-      end      
+      end
     rescue => e
       Sidekiq::Logging.logger.debug e.message
     end

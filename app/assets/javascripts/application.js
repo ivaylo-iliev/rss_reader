@@ -16,4 +16,6 @@
 //= require jquery-3.3.1.min
 //= require bootstrap.bundle.min
 //= require bootstrap.min
+//= require datetimepicker
+//= require moment.js
 //= require_tree .

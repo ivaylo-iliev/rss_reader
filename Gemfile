@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
@@ -33,6 +33,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+	gem 'minitest'
+	gem 'minitest-reporters'
 end
 
 group :development do
@@ -43,6 +45,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
@@ -62,4 +65,9 @@ gem 'sidekiq'
 gem 'sidekiq-cron'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap4'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-datetimepicker'
+end
+
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'

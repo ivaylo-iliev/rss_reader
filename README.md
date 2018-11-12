@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This RSS reader application requires installation of redis to run. It uses sidekiq to update all feeds every minute. 
 
-Things you may want to cover:
+* Ruby version - 2.5.1
 
-* Ruby version
+* System dependencies - Redis server
 
-* System dependencies
+* Database creation - The application uses sqlite3 as a database server. To create the db file run
+```
+ rails db:create
+ rails db:migrate
+```
 
-* Configuration
+* Running the tests
+```
+bundle exec rake db:drop RAILS_ENV=test
+bundle exec rake db:create RAILS_ENV=test
+bundle exec rake db:schema:load RAILS_ENV=test
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
+* Services 
+- Redis server
+- Sidekiq job scheduler
 
 * Deployment instructions
+Clone the repo localy then run
+```
+bundle exec rake db:create
+bundle exec rake db:migrate
+```
 
-* ...
+* Starting the application
+To start the application run the start.sh script located in the applicaiton folder.

@@ -2,20 +2,14 @@ production:
   :verbose: false
   :pidfile: ./tmp/sidekiq.pid
   :logfile: ./log/sidekiq-production.log
-  :concurency: 5
-  :queues:
-    - [default,1]
+  :concurrency: 5
 development:
   :verbose: true
   :pidfile: ./tmp/sidekiq.pid
   :logfile: ./log/sidekiq-development.log
-  :concurency: 5
-  :queues:
-    - [default,1]
+  :concurrency: 5
 test:
   :verbose: true
   :pidfile: ./tmp/sidekiq.pid
   :logfile: ./log/sidekiq-test.log
-  :concurency: 5
-  :queues:
-    - [default,1]
+  :concurrency: 5

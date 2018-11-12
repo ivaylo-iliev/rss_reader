@@ -1,30 +1,112 @@
 <div class="container-fluid">
-  <div class="header-container">
-    <div class="header-label">
-      <h3>Wellcome to your aggregated feed</h3>
+  <div class="row">
+    <div class="col-12">
+    	<h3>Wellcome to your aggregated feed</h3>
       <h6>Here are the latest news</h6>
     </div>
-    <div class="header-buttons">
-      <%= link_to "Edit feeds", feeds_path, class: "btn btn-primary" %>
+	</div>
+
+	<!-- Form to allow filtering of the aggregated feed -->
+	<form action="<%= news_index_path %>" method="GET" id="filter-form">
+  <div class="row">
+    <div class="col-2">
+			<div class="input-group input-group-sm mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fa fa-rss-square">&nbsp;</i>Feed:</span>
+				</div>
+				<input type="text" class="form-control" name="feed" id="feed" value="<%= (params[:feed].present? ? params[:feed] : nil) %>">
+			</div>
+		</div>
+	
+		<div class="col-2">
+			<div class="input-group input-group-sm mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fa fa-tag">&nbsp;</i>Title:</span>
+				</div>
+				<input type="text" class="form-control" name="title" id="value" value="<%= (params[:title].present? ? params[:title] : nil) %>">
+			</div>
+		</div>
+
+		<div class="col-2">
+			<div class="input-group input-group-sm mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fa fa-user-circle">&nbsp;</i>Author:</span>
+				</div>
+				<input type="text" class="form-control" name="author" id="author" value="<%= (params[:author].present? ? params[:author] : nil) %>">
+			</div>
+		</div>
+
+		<div class="col-4">
+			<div class="input-group input-group-sm mb3">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fa fa-calendar">&nbsp;</i>Published:</span>
+				</div>
+				<input type='text' class="form-control dtp" name="timestamp_from" id="timestamp_from" value="<%= (params[:timestamp_from].present? ? params[:timestamp_from] : nil) %>"/>
+				<input type='text' class="form-control dtp" name="timestamp_to" id="timestamp_to" value="<%= (params[:timestamp_to].present? ? params[:timestamp_to] : nil)%>"/>
+			</div>
+		</div>
+
+		<div class="col-1">
+			<div class="btn-group" role="group">
+				<input type="submit" value="Filter" class="btn btn-primary btn-sm">
+				<button id="clear-form" class="btn btn-danger btn-sm" >Clear</button>
+			</div>
+		</div>
+	</form>
+
+		<div class="col-1">
+    	<%= link_to "Edit feeds", feeds_path, class: "btn btn-primary btn-sm" %>
+		</div>
+
+	</div>
+
+	<!-- Aggregated feed display -->
+	<div class="row">
+    <div class="col-12">
+      <table class="table table-hover">
+        <tr>
+          <th>Feed</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Published</th>
+        </tr>
+        <% @news.each do |entry| %>
+          <tr>
+            <td><%= entry.feed.html_safe unless entry.feed.nil?%></td>
+            <td><%= link_to entry.title.html_safe, entry.url, target: :_blank %></td>
+            <td><%= entry.author.html_safe unless entry.author.nil? %></td>
+            <td><%= entry.published unless entry.published.nil? %> </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+	</div>
+
+	<!-- Pagination display -->
+  <div class="row">
+    <div class="col-12">
+      <div class="pagination">
+        <%= will_paginate @news, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
     </div>
   </div>
-  <table class="table table-hover">
-    <tr>
-      <th>Feed</th>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Published</th>
-    </tr>
-    <% @news.each do |entry| %>
-      <tr>
-        <td><%= entry.feed.html_safe unless entry.feed.nil?%></td>
-        <td><%= link_to entry.title.html_safe, entry.url, target: :_blank %></td>
-        <td><%= entry.author.html_safe unless entry.author.nil? %></td>
-        <td><%= time_ago_in_words(entry.published) unless entry.published.nil? %> ago</td>
-      </tr>
-    <% end %>
-  </table>
-  <div class="pagination">
-    <%= will_paginate @news, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-  </div>
 </div>
+
+<script type="text/javascript">
+	// Initialize the date-time picker controls
+	$( document ).ready(function() {
+    $('.dtp').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
+	});
+
+	// Clear the filtering form on button click and resubmit it with empty values to clear the results too
+	$("#clear-form").click(function(event){
+		event.preventDefault();
+		$("#feed").val("");
+		$("#title").val("");
+		$("#author").val("");
+		$("#timestamp_from").val("");
+		$("#timestamp_to").val("");
+		$("#filter-form").submit();
+	}) ;
+	
+</script>

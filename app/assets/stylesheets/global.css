@@ -63,5 +63,9 @@ label{
 }
 
 div.pagination{
-  margin-left: 35%;
+  margin-left: 40%;
+}
+
+div.container-fluid{
+  margin-top: 10px;
 }

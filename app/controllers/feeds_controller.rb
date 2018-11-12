@@ -1,5 +1,6 @@
 class FeedsController < ApplicationController
   before_action :set_feed, only: [:show, :edit, :update, :destroy]
+	skip_before_action :verify_authenticity_token
 
   # GET /feeds
   # GET /feeds.json
@@ -15,6 +16,15 @@ class FeedsController < ApplicationController
       system "rake sync:feeds"
       redirect_to feeds_path, notice: "All feeds were successfully updated."
     end
+  end
+
+  def generate
+    if params[:id].present?
+      FetchFeedJob.set(wait_until: Time.now + 1.seconds).perform_later(params[:id])
+    else
+      FetchAllFeedsJob.set(wait_until: Time.now + 1.seconds).perform_later()
+    end
+    redirect_to feeds_path, notice: "Feed update was triggered."
   end
 
   # GET /feeds/1
@@ -38,8 +48,8 @@ class FeedsController < ApplicationController
 
     respond_to do |format|
       if @feed.save
-        system "rake sync:feeds"
-        format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
+				FetchFeedJob.set(wait_until: Time.now + 1.seconds).perform_later(@feed.id)
+        format.html { redirect_to feeds_path, notice: 'Feed was successfully created.' }
         format.json { render :show, status: :created, location: @feed }
       else
         format.html { render :new }

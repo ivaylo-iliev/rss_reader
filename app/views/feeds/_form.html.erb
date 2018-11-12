@@ -4,7 +4,7 @@
   }
 </style>
 <div class="container-fluid">
-<%= form_with(model: feed, local: true) do |form| %>
+<%= form_with(model: feed, local: true, id: "feed_form") do |form| %>
   <% if feed.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(feed.errors.count, "error") %> prohibited this feed from being saved:</h2>
@@ -34,6 +34,6 @@
 
 </div>
 <br />
-<%= form.submit "Save", class: "btn btn-primary" %>
-<%= link_to 'Back', feeds_path, class: "btn btn-danger" %>
 <% end %>
+<button class="btn btn-primary" onclick="$('#feed_form').submit()">Save</button>
+<%= link_to 'Back', feeds_path, class: "btn btn-danger" %>

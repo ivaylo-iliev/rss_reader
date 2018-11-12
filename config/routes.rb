@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   get 'news/index'
+  get 'feeds/generate'
+	post 'feeds/create'
+	post 'feeds/new'
   resources :feeds do
     member do
       resources :entries, only: [:index, :show]

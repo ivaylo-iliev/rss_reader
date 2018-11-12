@@ -1,43 +1,48 @@
-<p id="notice"><%= notice %></p>
-<div class="header-container">
-  <div class="header-label"><h3>Feeds</h3></div>
-  <div class="header-buttons">
-    <div class="btn-group" role="group">
-      <%= link_to 'New Feed', new_feed_path, {class: "btn btn-primary", style: "color: white;"} %>
-      <%= link_to 'Reload All Feeds', feeds_path(reload_all: true), {class: "btn btn-success", style: "color: white;"} %>
+<div class="container-fluid" >
+  <% unless notice.nil? %>
+    <div class="alert alert-success" id="notice"><%= notice %></div>
+  <% end %>
+  <div class="header-container">
+    <div class="header-label"><h3>Feeds</h3></div>
+    <div class="header-buttons">
+      <div class="btn-group" role="group">
+        <%= link_to 'New Feed', new_feed_path, {class: "btn btn-primary"} %>
+        <%= link_to 'Reload All Feeds', "#{feeds_generate_path}", {class: "btn btn-success"} %>
+        <%= link_to 'Back to the news', news_index_path, {class: "btn btn-warning"} %>
+      </div>
+
     </div>
   </div>
-</div>
-<br clear="both" />
-<table class="table table-hover">
-  <colgroup>
-    <col />
-    <col />
-    <col />
-    <col width="120px;"/>
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Url</th>
-      <th>Description</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @feeds.each do |feed| %>
+  <br clear="both" />
+  <table class="table table-hover">
+    <colgroup>
+      <col />
+      <col />
+      <col />
+      <col width="120px;"/>
+    </colgroup>
+    <thead>
       <tr>
-        <td><%= feed.name %></td>
-        <td><%= feed.url %></td>
-        <td><%= feed.description %></td>
-        <td>
-          <%= link_to '', entries_path(feed.id), class: "fa fa-eye fa-primary" %>
-          <%= link_to '', edit_feed_path(feed), class: "fa fa-edit fa-success" %>
-          <%= link_to '', feeds_path(reload_single: feed.id), class: "fa fa-refresh fa-secondary" %>
-          <%= link_to '', feed, class: "fa fa-trash fa-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <th>Name</th>
+        <th>Url</th>
+        <th>Description</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @feeds.each do |feed| %>
+        <tr>
+          <td><%= feed.name %></td>
+          <td><%= feed.url %></td>
+          <td><%= feed.description %></td>
+          <td>
+            <%= link_to '', edit_feed_path(feed), class: "fa fa-edit fa-success" %>
+            <%= link_to '', "#{feeds_generate_path}?id=#{feed.id}", class: "fa fa-refresh fa-secondary" %>
+            <%= link_to '', feed, class: "fa fa-trash fa-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

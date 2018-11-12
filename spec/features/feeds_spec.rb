@@ -4,12 +4,12 @@ require 'rails_helper'
 feature "Visit feeds" do
   scenario "able to open the list of feeds", js: true do
     visit("/")
-    expect(page).to have_content ("Feeds")
+    expect(page).to have_content ("Wellcome to your aggregated feed")
   end
 end
 
 feature "Add new feed" do
-  scenario "able to create new feed", js: true do
+  scenario "able to create new feed", js: false do
     visit("/feeds/new")
     fill_in 'Name', with: "CNN"
     fill_in 'Url', with: "http://rss.cnn.com/rss/cnn_topstories.rss"
@@ -25,3 +25,4 @@ feature "Reload all feeds" do
     expect(page).to have_content("All feeds were successfully updated.")
   end
 end
+
