@@ -34,4 +34,4 @@ bundle exec rake db:migrate
 To start the application run the start.sh script located in the applicaiton folder.
 
 * Known bugs/issues
-Issue with submitting the feed creation form. No error message produced, nothing in the JS console of the browser. Fixed by replacing the native sumbit functionality with javascript submit function.
+-- Issue with submitting the feed creation form. No error message produced, nothing in the JS console of the browser. Fixed by replacing the native sumbit functionality with javascript submit function.
